@@ -2,7 +2,7 @@
 
 ## Overview
 
-The project is a scaffolding template for backstage that helps to create AWS SAM based serverless application using python. The Software Templates part of Backstage is a tool that can help you create Components inside Backstage. By default, it has the ability to load skeletons of code, template in some variables, and then publish the template to some locations like GitHub or GitLab.
+Scaffolding template for backstage to create AWS SAM based serverless application using python. The Software Templates part of Backstage is a tool that can help you create Components inside Backstage. By default, it has the ability to load skeletons of code, template in some variables, and then publish the template to some locations like GitHub or GitLab.
 
 ## Installation
 
@@ -30,19 +30,19 @@ Now lets create a new application using the registered component.
     - **Owner** - Owner of the github repository.
     - **Repository** - Name of the github repository.
 6. Click on **Next** button.
-7. Review all the details and click on **Create** button, this should take care of fetching the required files, apply cookie cutter and push it to the specified github repository.
-8. Click on the **Repo** hyperlink to navigate to the github repository.
+7. Review all the details and click on **Create** button, this should take care of fetching the required files, apply cookie cutter pattern and push the modified contents to the specified github repository.
+8. Click on the **Repo** hyperlink to navigate to the newly created github repository.
 
 ## Deployment
 
-Newly created git repository uses Github actions to deploy the sam application to AWS. So we need to specify the AWS credentials as secrets in the Github repository. Here is a step by step guide for creating it.
+Code repository uses Github actions to deploy the sam application to AWS. So we need to specify the AWS credentials in the form of Github secrets. Here is a step by step guide to specify the secrets:
 
 1. Click on **Settings** menu and click on **Secrets** sidebar.
 2. Click on **New repository secret** button and enter the following details:
     - **AWS_ACCESS_KEY_ID** - AWS Access Key ID
     - **AWS_SECRET_ACCESS_KEY** - AWS Secret Access Key
 3. Click on **Actions** menu, naviate to `.github/workflows/deploy.yml` file and click on **Run workflow** button to launch the action.
-4. This should automatically deploy the application to AWS, here is the sample cloudformation output that you can see in the Github actions
+4. This should automatically deploy the application to AWS, here is the sample cloudformation output, you can see in the Github actions
 
 ```bash
 CloudFormation outputs from deployed stack
