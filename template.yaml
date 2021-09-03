@@ -25,7 +25,7 @@ spec:
         project_name:
           title: Name of the project
           type: string
-          description: Name of the kubernetes service
+          description: Name of the application
         include_safe_deployment:
           title: Include Safe deployment
           type: boolean

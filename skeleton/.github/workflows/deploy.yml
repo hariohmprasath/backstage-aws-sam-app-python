@@ -15,6 +15,8 @@ jobs:
         with:
           python-version: "3.8"
       - uses: aws-actions/setup-sam@v1
+        with:
+          version: "1.23.0"
       - uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -23,4 +25,4 @@ jobs:
       # Build inside Docker containers
       - run: sam build --use-container
       # Prevent prompts and failure when the stack is unchanged
-      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
+      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --resolve-s3
