@@ -1,0 +1,92 @@
+apiVersion: backstage.io/v1beta2
+kind: Template
+metadata:
+  name: aws-sam-template
+  title: AWS SAM template for Python
+  description: Creates a new AWS SAM Python application
+  tags:
+    - recommended
+    - python    
+spec:
+  owner: harrajag@amazon.com
+  type: service
+  
+  parameters:
+    - title: Provide some simple information
+      required:
+        - component_id        
+        - project_name   
+        - region             
+      properties:
+        component_id:
+          title: component_id
+          type: string
+          description: Unique name of the component        
+        project_name:
+          title: Name of the project
+          type: string
+          description: Name of the kubernetes service
+        include_safe_deployment:
+          title: Include Safe deployment
+          type: boolean
+          description: Sends by default 10% of traffic for every 1 minute to a newly deployed function using CodeDeploy + SAM integration - Linear10PercentEvery1Minute
+        region:
+          title: AWS region
+          type: string
+          description: AWS region in which the stack will be deployed  
+          enum:
+            - us-east-1
+            - us-east-2
+            - us-west-1
+            - us-west-2
+            - eu-west-1
+            - eu-west-2
+            - eu-west-3
+            - eu-north-1
+            - ap-east-1
+            - ap-south-1
+            - ap-southeast-1
+            - ap-southeast-2
+    - title: Choose a location  
+      required:
+        - repoUrl
+      properties: 
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+  steps:
+    - id: template
+      name: Fetch Skeleton + Template
+      action: fetch:cookiecutter
+      input:        
+        url: ./skeleton
+        copyWithoutRender:
+          - .github/workflows/*
+        values:
+          component_id: '{{ parameters.component_id }}'
+          project_name: '{{ parameters.project_name }}'
+          include_safe_deployment: '{{ parameters.include_safe_deployment }}'
+          region: '{{ parameters.region }}'
+   
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: 'Repo for {{ parameters.project_name }} AWS Sam application'
+        repoUrl: '{{ parameters.repoUrl }}'
+
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: '{{ steps.publish.output.repoContentsUrl }}'
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    remoteUrl: '{{ steps.publish.output.remoteUrl }}'
+    entityRef: '{{ steps.register.output.entityRef }}'
