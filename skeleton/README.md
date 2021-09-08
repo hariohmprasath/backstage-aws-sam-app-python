@@ -1,4 +1,6 @@
-# {{ cookiecutter.project_name }}
+# {{ cookiecutter.component_id }}
+
+{{ cookiecutter.description }}
 
 This project contains source code and supporting files for a serverless application that you can deploy with the SAM CLI. It includes [Lambda Powertools for operational best practices](https://github.com/awslabs/aws-lambda-powertools-python), and the following files and folders.
 
@@ -31,8 +33,8 @@ If you prefer to use an integrated development environment (IDE) to build and te
 Build and deploy your application for the first time by running the following commands in your shell:
 
 ```bash
-{{ cookiecutter.project_name }}$ make build
-{{ cookiecutter.project_name }}$ make deploy.guided
+{{ cookiecutter.component_id }}$ make build
+{{ cookiecutter.component_id }}$ make deploy.guided
 ```
 
 The first command will **build** the source of your application within a Docker container. The second command will **package and deploy** your application to AWS. Guided deploy means SAM CLI will ask you about the name of your deployment/stack, AWS Region, and whether you want to save your choices, so that you can use `make deploy` next time.
@@ -42,7 +44,7 @@ The first command will **build** the source of your application within a Docker 
 Whenever you change your application code, you'll have to run build command:
 
 ```bash
-{{ cookiecutter.project_name }}$ make build
+{{ cookiecutter.component_id }}$ make build
 ```
 
 The SAM CLI installs dependencies defined in `hello_world/requirements.txt`, creates a deployment package, and saves it in the `.aws-sam/build` folder.
@@ -50,7 +52,7 @@ The SAM CLI installs dependencies defined in `hello_world/requirements.txt`, cre
 Test a single function by invoking it directly with a test event:
 
 ```bash
-{{ cookiecutter.project_name }}$ make invoke
+{{ cookiecutter.component_id }}$ make invoke
 ```
 
 > An event is a JSON document that represents the input that the function receives from the event source. Test events are included in the `events` folder in this project.
@@ -58,8 +60,8 @@ Test a single function by invoking it directly with a test event:
 The SAM CLI can also emulate your application's API. Use the `make run` to run the API locally on port 3000.
 
 ```bash
-{{ cookiecutter.project_name }}$ make run
-{{ cookiecutter.project_name }}$ curl http://localhost:3000/hello
+{{ cookiecutter.component_id }}$ make run
+{{ cookiecutter.component_id }}$ curl http://localhost:3000/hello
 ```
 
 The SAM CLI reads the application template to determine the API's routes and the functions that they invoke. The `Events` property on each function's definition includes the route and method for each path.
@@ -80,7 +82,7 @@ To simplify troubleshooting, SAM CLI has a command called `sam logs`. `sam logs`
 `NOTE`: This command works for all AWS Lambda functions; not just the ones you deploy using SAM.
 
 ```bash
-{{ cookiecutter.project_name }}$ sam logs -n HelloWorldFunction --stack-name <Name-of-your-deployed-stack> --tail
+{{ cookiecutter.component_id }}$ sam logs -n HelloWorldFunction --stack-name <Name-of-your-deployed-stack> --tail
 ```
 
 You can find more information and examples about filtering Lambda function logs in the [SAM CLI Documentation](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-logging.html).
@@ -92,8 +94,8 @@ Tests are defined in the `tests` folder in this project, and we use Pytest as th
 Make sure you install dev dependencies before you run tests with `make dev`:
 
 ```bash
-{{ cookiecutter.project_name }}$ make dev
-{{ cookiecutter.project_name }}$ make test
+{{ cookiecutter.component_id }}$ make dev
+{{ cookiecutter.component_id }}$ make test
 ```
 
 ## Cleanup
@@ -101,7 +103,7 @@ Make sure you install dev dependencies before you run tests with `make dev`:
 To delete the sample application that you created, use the AWS CLI. Assuming you used your project name for the stack name, you can run the following:
 
 ```bash
-{{ cookiecutter.project_name }}$ aws cloudformation delete-stack --stack-name {{ cookiecutter.project_name }}
+{{ cookiecutter.component_id }}$ aws cloudformation delete-stack --stack-name {{ cookiecutter.component_id }}
 ```
 
 # Appendix
@@ -134,5 +136,5 @@ We included a `Makefile` for your convenience - You can find all commands you ca
 Pipenv takes care of isolating dev dependencies and app dependencies. As SAM CLI requires a `requirements.txt` file, you'd need to generate one if new app dependencies have been added:
 
 ```bash
-{{ cookiecutter.project_name }}$ pipenv lock -r > hello_world/requirements.txt
+{{ cookiecutter.component_id }}$ pipenv lock -r > hello_world/requirements.txt
 ```
