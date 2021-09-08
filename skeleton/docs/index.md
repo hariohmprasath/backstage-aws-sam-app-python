@@ -1,6 +1,6 @@
 # {{ cookiecutter.component_id }}
 
-{{ cookiecutter.description }}
+{{ cookiecutter.project_name }}
 
 This project contains source code and supporting files for a serverless application that you can deploy with the SAM CLI. It includes [Lambda Powertools for operational best practices](https://github.com/awslabs/aws-lambda-powertools-python), and the following files and folders.
 
