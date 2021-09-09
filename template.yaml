@@ -15,17 +15,16 @@ spec:
     - title: Provide some simple information
       required:
         - component_id        
-        - project_name   
         - region             
       properties:
         component_id:
-          title: component_id
+          title: Name
           type: string
           description: Unique name of the component        
-        project_name:
-          title: Name of the project
+        description:
+          title: Description
           type: string
-          description: Name of the application
+          description: Help others understand what this component is for.
         include_safe_deployment:
           title: Include Safe deployment
           type: boolean
@@ -47,6 +46,14 @@ spec:
             - ap-south-1
             - ap-southeast-1
             - ap-southeast-2
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the component
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds: 
+              - Group    
     - title: Choose a location  
       required:
         - repoUrl
@@ -67,17 +74,19 @@ spec:
         copyWithoutRender:
           - .github/workflows/*
         values:
-          component_id: '{{ parameters.component_id }}'
-          project_name: '{{ parameters.project_name }}'
+          component_id: '{{ parameters.component_id }}'          
           include_safe_deployment: '{{ parameters.include_safe_deployment }}'
           region: '{{ parameters.region }}'
+          description: '{{ parameters.description }}'
+          owner: '{{ parameters.owner }}'
+          destination: '{{ parseRepoUrl parameters.repoUrl }}'
    
     - id: publish
       name: Publish
       action: publish:github
       input:
         allowedHosts: ['github.com']
-        description: 'Repo for {{ parameters.project_name }} AWS Sam application'
+        description: '{{ parameters.description }}'
         repoUrl: '{{ parameters.repoUrl }}'
 
     - id: register

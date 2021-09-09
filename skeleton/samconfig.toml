@@ -2,8 +2,8 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "{{ cookiecutter.project_name }}"
-s3_prefix = "{{ cookiecutter.project_name }}"
+stack_name = "{{ cookiecutter.component_id }}"
+s3_prefix = "{{ cookiecutter.component_id }}"
 region = "{{ cookiecutter.region }}"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
